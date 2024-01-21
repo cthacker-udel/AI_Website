@@ -1,0 +1,1 @@
+export { flipSpecification } from "./flipSpecification";
