@@ -1,4 +1,5 @@
 import type { Board } from "../@types/Board";
+import type { BoardTerritory } from "../@types/BoardTerritory";
 import { CheckersPlayer } from "../enums/CheckersPlayer";
 import { getTerritory } from "../helpers/getTerritory";
 import type { CheckersPiece } from "./CheckersPiece";
@@ -7,17 +8,23 @@ import type { CheckersPiece } from "./CheckersPiece";
  *
  */
 export class BoardInfo {
-    public rows: number;
+    public minY = 0;
 
-    public cols: number;
+    public maxY: number;
+
+    public minX = 0;
+
+    public maxX: number;
+
+    public yCenter: number;
+
+    public xCenter: number;
 
     public board?: Board<CheckersPiece>;
 
+    public territoryInfo?: BoardTerritory;
+
     public turn: CheckersPlayer = CheckersPlayer.BOTTOM;
-
-    public enemyTerritory?: Board<CheckersPiece>;
-
-    public friendlyTerritory?: Board<CheckersPiece>;
 
     /**
      *
@@ -25,8 +32,10 @@ export class BoardInfo {
      * @param cols
      */
     public constructor(rows: number, cols: number) {
-        this.rows = rows;
-        this.cols = cols;
+        this.maxY = rows;
+        this.maxX = cols;
+        this.yCenter = this.maxY / 2;
+        this.xCenter = this.maxX / 2;
     }
 
     /**
@@ -40,8 +49,7 @@ export class BoardInfo {
     public setTurn = (turn: CheckersPlayer): void => {
         this.turn = turn;
         if (this.board !== undefined) {
-            this.enemyTerritory = getTerritory(this.board, this.turn, true);
-            this.friendlyTerritory = getTerritory(this.board, this.turn);
+            this.territoryInfo = getTerritory(this.board, this.turn);
         }
     };
 }

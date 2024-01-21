@@ -1,11 +1,17 @@
 import { GraphNode } from "@/models/adversarial/GraphNode";
 import type { GraphNodeType } from "@/models/adversarial/GraphNodeType";
-import { flipSpecification } from "@/models/helpers";
+
+import type { CheckersState } from "./CheckersState";
 
 /**
  * Represents a graph node in the specific checkers game
  */
 export class CheckersGraphNode extends GraphNode {
+    /**
+     * Represents a state of the checkers game
+     */
+    public state: CheckersState;
+
     public isWinningMove = false;
 
     /**
@@ -20,14 +26,9 @@ export class CheckersGraphNode extends GraphNode {
     public constructor(
         value: number,
         specification: GraphNodeType,
-        children: GraphNode<CheckersGraphNode>[] = [],
-        flipSpec = false,
-        isWinningMove = false,
+        state: CheckersState,
     ) {
-        super(value, specification, children);
-        this.specification = flipSpec
-            ? flipSpecification(this.specification)
-            : this.specification;
-        this.isWinningMove = isWinningMove;
+        super(value, specification);
+        this.state = state;
     }
 }

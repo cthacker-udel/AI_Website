@@ -45,7 +45,7 @@ export class CheckersState {
         this.info = info;
         this.turn = currentTurn ?? generateRandomTurn();
         this.board =
-            currentBoard ?? generateCheckersBoard(info.rows, info.cols);
+            currentBoard ?? generateCheckersBoard(info.maxY, info.maxX);
 
         this.info.setBoard(currentBoard);
     }
